@@ -60,6 +60,7 @@ class DelayedJobWeb < Sinatra::Base
   def tabs
     [
       {:name => 'Overview', :path => '/overview'},
+      {:name => 'Completed', :path => '/completed'},
       {:name => 'Enqueued', :path => '/enqueued'},
       {:name => 'Working', :path => '/working'},
       {:name => 'Pending', :path => '/pending'},
@@ -71,6 +72,14 @@ class DelayedJobWeb < Sinatra::Base
   def delayed_job
     begin
       Delayed::Job
+    rescue
+      false
+    end
+  end
+
+  def completed_job
+    begin
+      CompletedJob
     rescue
       false
     end
@@ -94,6 +103,17 @@ class DelayedJobWeb < Sinatra::Base
       erb :overview
     else
       @message = "Unable to connected to Delayed::Job database"
+      erb :error
+    end
+  end
+
+  get '/completed' do
+    if completed_job
+      @disable_options = true
+      @jobs = completed_job.order('created_at desc, id desc').offset(start).limit(per_page)
+      erb :completed
+    else
+      @message = "Unable to connected to CompltedJob database"
       erb :error
     end
   end

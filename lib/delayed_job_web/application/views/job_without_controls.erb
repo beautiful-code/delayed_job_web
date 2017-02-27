@@ -4,8 +4,6 @@
     <dd>
       <a name="<%= job.id %>"></a>
       <a href="#<%= job.id %>"><%=h job.id %></a>
-
-      <%= partial :job_controls, {:job => job} %>
     </dd>
 
     <%= partial :job_details, {:job => job} %>

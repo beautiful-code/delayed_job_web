@@ -11,6 +11,14 @@
   </tr>
   <tr>
     <td class="status">
+      <a href="<%= u('/completed') %>">Completed Jobs</a>
+    </td>
+    <td>
+      <%= completed_job.count %>
+    </td>
+  </tr>
+  <tr>
+    <td class="status">
       <a href="<%= u('/enqueued') %>">Enqueued Jobs</a>
     </td>
     <td>

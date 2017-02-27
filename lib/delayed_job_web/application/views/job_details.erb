@@ -1,0 +1,48 @@
+<dt>Priority</dt>
+<dd><%=h job.priority %></dd>
+<dt>Attempts</dt>
+<dd><%=h job.attempts %></dd>
+<% if job.respond_to?(:queue) && job.queue %>
+  <dt>Queue</dt>
+  <dd><%=h job.queue %></dd>
+<% end %>
+<dt>Handler</dt>
+<dd>
+<pre><%=h job.handler %></pre>
+</dd>
+<% if job.last_error %>
+  <dt>Last Error</dt>
+  <dd>
+  <div class="backtrace">
+    <pre><%=h job.last_error[0..100] + '...' %></pre>
+  </div>
+  <a class="backtrace" href="#">Toggle full message</a>
+  <div class="backtrace full hide">
+    <pre><%=h job.last_error %></pre>
+  </div>
+  </dd>
+<% end %>
+<% if job.run_at %>
+  <dt>Run At</dt>
+  <dd class="time">
+  <%=h job.run_at.rfc822 %>
+  </dd>
+<% end %>
+<% if job.locked_at %>
+  <dt>Locked At</dt>
+  <dd class="time">
+  <%=h job.locked_at.rfc822 %>
+  </dd>
+<% end %>
+<% if job.locked_by %>
+  <dt>Locked By</dt>
+  <dd>
+  <%=h job.locked_by %>
+  </dd>
+<% end %>
+<% if job.failed_at %>
+  <dt>Failed At</dt>
+  <dd>
+  <%=h job.failed_at %>
+  </dd>
+<% end %>

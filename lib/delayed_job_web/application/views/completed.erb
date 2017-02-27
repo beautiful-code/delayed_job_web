@@ -1,0 +1,13 @@
+<h1>Completed</h1>
+<p class="sub">
+  The list below contains jobs that have completed it's execution.
+</p>
+<p class="sub">
+  <%= "Showing #{start} to #{start + per_page} of #{@jobs.count} completed jobs." %>
+</p>
+<ul class="job">
+  <% @jobs.each do |job| %>
+    <%= partial :job_without_controls, {:job => job} %>
+  <% end %>
+</ul>
+<%= partial :next_more, :start => start, :total_size => @jobs.count, :per_page => per_page %>
